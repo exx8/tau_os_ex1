@@ -10,48 +10,47 @@
 #include "os.h"
 
 /* 2^20 pages ought to be enough for anybody */
-#define NPAGES	(1024*1024)
+#define NPAGES    (1024*1024)
 #define NLEVELS 6
-static void* pages[NPAGES];
+static void *pages[NPAGES];
 
-uint64_t alloc_page_frame(void)
-{
-	static uint64_t nalloc;
-	uint64_t ppn;
-	void* va;
+uint64_t alloc_page_frame(void) {
+    static uint64_t nalloc;
+    uint64_t ppn;
+    void *va;
 
-	if (nalloc == NPAGES)
-		errx(1, "out of physical memory");
+    if (nalloc == NPAGES)
+        errx(1, "out of physical memory");
 
-	/* OS memory management isn't really this simple */
-	ppn = nalloc;
-	nalloc++;
+    /* OS memory management isn't really this simple */
+    ppn = nalloc;
+    nalloc++;
 
-	va = mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-	if (va == MAP_FAILED)
-		err(1, "mmap failed");
+    va = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (va == MAP_FAILED)
+        err(1, "mmap failed");
 
-	pages[ppn] = va;
-	return ppn;
+    pages[ppn] = va;
+    return ppn;
 }
 
-void* phys_to_virt(uint64_t phys_addr)
-{
-	uint64_t ppn = phys_addr >> 12;
-	uint64_t off = phys_addr & 0xfff;
-	void* va = NULL;
+void *phys_to_virt(uint64_t phys_addr) {
+    uint64_t ppn = phys_addr >> 12;
+    uint64_t off = phys_addr & 0xfff;
+    void *va = NULL;
 
-	if (ppn < NPAGES)
-		va = pages[ppn] + off;
+    if (ppn < NPAGES)
+        va = pages[ppn] + off;
 
-	return va;
+    return va;
 }
+
 /*VPN== VIRTUAL PAGE NUMBER
  * PPN==PHYSICAL PAGE NUMBER
  * PT==POINTER
  */
 
-void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn){
+void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
     switch (ppn) {
         case NO_MAPPING: //AKA delete page
 
@@ -61,16 +60,16 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn){
 
     }
 }
-int main(int argc, char **argv)
-{
-	uint64_t pt = alloc_page_frame();
 
-	assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
-	page_table_update(pt, 0xcafe, 0xf00d);
-	assert(page_table_query(pt, 0xcafe) == 0xf00d);
-	page_table_update(pt, 0xcafe, NO_MAPPING);
-	assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
+int main(int argc, char **argv) {
+    uint64_t pt = alloc_page_frame();
 
-	return 0;
+    assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
+    page_table_update(pt, 0xcafe, 0xf00d);
+    assert(page_table_query(pt, 0xcafe) == 0xf00d);
+    page_table_update(pt, 0xcafe, NO_MAPPING);
+    assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
+
+    return 0;
 }
 
