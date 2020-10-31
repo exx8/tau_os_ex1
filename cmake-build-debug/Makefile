@@ -143,32 +143,32 @@ tau_os_ex1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/build
 .PHONY : tau_os_ex1/fast
 
-main.o: main.c.o
+os.o: os.c.o
 
-.PHONY : main.o
+.PHONY : os.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/main.c.o
-.PHONY : main.c.o
+os.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/os.c.o
+.PHONY : os.c.o
 
-main.i: main.c.i
+os.i: os.c.i
 
-.PHONY : main.i
+.PHONY : os.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/main.c.i
-.PHONY : main.c.i
+os.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/os.c.i
+.PHONY : os.c.i
 
-main.s: main.c.s
+os.s: os.c.s
 
-.PHONY : main.s
+.PHONY : os.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/main.c.s
-.PHONY : main.c.s
+os.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tau_os_ex1.dir/build.make CMakeFiles/tau_os_ex1.dir/os.c.s
+.PHONY : os.c.s
 
 # Help Target
 help:
@@ -179,9 +179,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... tau_os_ex1"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... os.o"
+	@echo "... os.i"
+	@echo "... os.s"
 .PHONY : help
 
 
