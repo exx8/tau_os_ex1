@@ -45,6 +45,18 @@ void *phys_to_virt(uint64_t phys_addr) {
     return va;
 }
 
+void delete_page(uint64_t pt, uint64_t vpn) {
+    uint64_t ppn2Destroy = page_table_query(pt, vpn);
+    pages[ppn2Destroy]=NULL;
+
+}
+void move_page(uint64_t pt,uint64_t vpn,uint64_t new_ppn)
+{
+    uint64_t  ppn2move=page_table_query(pt,vpn);
+    pages[new_ppn]=pages[ppn2move];
+    pages[ppn2move]=NULL;
+}
+
 /*VPN== VIRTUAL PAGE NUMBER
  * PPN==PHYSICAL PAGE NUMBER
  * PT==POINTER
@@ -54,8 +66,10 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
     switch (ppn) {
         case NO_MAPPING: //AKA delete page
 
+            delete_page(pt, vpn);
             break;
         default:
+            move_page(pt,vpn,ppn);
             break;
 
     }
