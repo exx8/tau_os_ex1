@@ -11,7 +11,7 @@
 
 /* 2^20 pages ought to be enough for anybody */
 #define NPAGES	(1024*1024)
-
+#define NLEVELS 6
 static void* pages[NPAGES];
 
 uint64_t alloc_page_frame(void)
@@ -31,7 +31,7 @@ uint64_t alloc_page_frame(void)
 	if (va == MAP_FAILED)
 		err(1, "mmap failed");
 
-	pages[ppn] = va;	
+	pages[ppn] = va;
 	return ppn;
 }
 
@@ -46,7 +46,21 @@ void* phys_to_virt(uint64_t phys_addr)
 
 	return va;
 }
+/*VPN== VIRTUAL PAGE NUMBER
+ * PPN==PHYSICAL PAGE NUMBER
+ * PT==POINTER
+ */
 
+void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn){
+    switch (ppn) {
+        case NO_MAPPING: //AKA delete page
+
+            break;
+        default:
+            break;
+
+    }
+}
 int main(int argc, char **argv)
 {
 	uint64_t pt = alloc_page_frame();
