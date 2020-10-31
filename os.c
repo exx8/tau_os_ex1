@@ -47,14 +47,14 @@ void *phys_to_virt(uint64_t phys_addr) {
 
 void delete_page(uint64_t pt, uint64_t vpn) {
     uint64_t ppn2Destroy = page_table_query(pt, vpn);
-    pages[ppn2Destroy]=NULL;
+    pages[ppn2Destroy] = NULL;
 
 }
-void move_page(uint64_t pt,uint64_t vpn,uint64_t new_ppn)
-{
-    uint64_t  ppn2move=page_table_query(pt,vpn);
-    pages[new_ppn]=pages[ppn2move];
-    pages[ppn2move]=NULL;
+
+void move_page(uint64_t pt, uint64_t vpn, uint64_t new_ppn) {
+    uint64_t ppn2move = page_table_query(pt, vpn);
+    pages[new_ppn] = pages[ppn2move];
+    pages[ppn2move] = NULL;
 }
 
 /*VPN== VIRTUAL PAGE NUMBER
@@ -69,13 +69,13 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
             delete_page(pt, vpn);
             break;
         default:
-            move_page(pt,vpn,ppn);
+            move_page(pt, vpn, ppn);
             break;
 
     }
 }
-uint64_t page_table_query(uint64_t pt, uint64_t vpn)
-{
+
+uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
     //@todo
 }
 
