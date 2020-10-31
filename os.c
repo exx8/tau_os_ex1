@@ -79,16 +79,31 @@ uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
     //@todo
 }
 
-
-int main(int argc, char **argv) {
+void asserti(int expr)
+{
+    //assert(expr);
+}
+int main2(int argc, char **argv) {
     uint64_t pt = alloc_page_frame();
 
-    assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
+    asserti(page_table_query(pt, 0xcafe) == NO_MAPPING);
     page_table_update(pt, 0xcafe, 0xf00d);
-    assert(page_table_query(pt, 0xcafe) == 0xf00d);
+    asserti(page_table_query(pt, 0xcafe) == 0xf00d);
     page_table_update(pt, 0xcafe, NO_MAPPING);
-    assert(page_table_query(pt, 0xcafe) == NO_MAPPING);
+    asserti(page_table_query(pt, 0xcafe) == NO_MAPPING);
 
     return 0;
 }
+int main(int argc, char **argv) {
+    uint64_t pt = alloc_page_frame();
+    for(int i=0;i<100;i++)
+    pt = alloc_page_frame();
 
+    asserti(page_table_query(pt, 3) == NO_MAPPING);
+    page_table_update(pt, 3, 7);
+    asserti(page_table_query(pt, 3) == 7);
+    page_table_update(pt, 3, NO_MAPPING);
+    asserti(page_table_query(pt, 3) == NO_MAPPING);
+    uint64_t * t=pages[7];
+    return 0;
+}
