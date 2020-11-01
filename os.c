@@ -94,7 +94,7 @@ int main2(int argc, char **argv) {
 
     return 0;
 }
-int main(int argc, char **argv) {
+int main3(int argc, char **argv) {
     uint64_t pt = alloc_page_frame();
     for(int i=0;i<100;i++)
     pt = alloc_page_frame();
@@ -106,4 +106,12 @@ int main(int argc, char **argv) {
     asserti(page_table_query(pt, 3) == NO_MAPPING);
     uint64_t * t=pages[7];
     return 0;
+}
+int main(int argc, char **argv) {
+    uint64_t pt = alloc_page_frame();
+    uint64_t pt2 = alloc_page_frame();
+
+    for(int i=0;i<NPAGES;i++)
+        if(pages[i]!=NULL)
+            printf("%d\n",i);
 }
