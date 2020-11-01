@@ -17,10 +17,16 @@ err.h
 -
 sys/mman.h
 -
+pt.c
+/home/eran/CLionProjects/tau_os_ex1/pt.c
 os.h
 /home/eran/CLionProjects/tau_os_ex1/os.h
 
 /home/eran/CLionProjects/tau_os_ex1/os.h
 stdint.h
 -
+
+/home/eran/CLionProjects/tau_os_ex1/pt.c
+os.h
+/home/eran/CLionProjects/tau_os_ex1/os.h
 
