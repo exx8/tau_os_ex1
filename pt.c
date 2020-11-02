@@ -72,14 +72,15 @@ uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
     return virt_address;
 }
 
-uint64_t pte2PPN(uint64_t entry) {
-    if (invalid(entry))
-        return NO_MAPPING;
-    return unpad_address(entry);
-}
 
-uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
+uint64_t get_pte(uint64_t pt, uint64_t vpn) {
     uint64_t *virt_address = get_virt_address(pt);
     virt_address = page_walk(virt_address, vpn);
     return virt_address;
+}
+
+uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
+    uint64_t pte = get_pte(pt, vpn);
+    pte = unpad_address(pte);
+    return pte;
 }
