@@ -53,23 +53,27 @@ bool valid_is_1(uint64_t entry) {
 bool invalid(uint64_t entry) {
     return !valid_is_1(entry);
 }
+
 uint64_t pte2ppn(uint64_t entry) {
-    if(invalid( entry))
+    if (invalid(entry))
         return NO_MAPPING;
-    else
-    {
+    else {
         return unpad_address(entry);
     }
 }
 
-uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
-    uint64_t *virt_address = get_virt_address(pt);
-    for (short i = 0; i < NLEVELS; i++) {
-        int level_value = get_level(virt_address, i);
+uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
+    for (short i = 0; i <= NLEVELS; i++) {
+        int level_value = get_level(vpn, i);
         if (invalid(virt_address[level_value]))
             return NO_MAPPING;
-        //todo continue if address IS valid
-
+        virt_address = virt_address[level_value];
     }
+    return virt_address;
+}
 
+uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
+    uint64_t *virt_address = get_virt_address(pt);
+    virt_address = page_walk(virt_address, vpn);
+    return virt_address;
 }
