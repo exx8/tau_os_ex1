@@ -14,6 +14,11 @@ uint64_t pad_address(uint64_t pt) {
     return pt << 12;
 }
 
+uint64_t unpad_address(uint64_t pt) {
+    return pt >> 12;
+}
+
+
 void move_page(uint64_t pt, uint64_t vpn, uint64_t ppn) {
     //todo
 }
@@ -37,24 +42,33 @@ uint64_t get_level(uint64_t vpn, short level) {
     int keep_only = 511;
     const int level_size = 9;
     keep_only <<= level * level_size;
-    return ppn && keep_only;
+    return vpn && keep_only;
 
 }
-bool valid_is_1(uint64_t entry)
-{
-    return entry&&1;
+
+bool valid_is_1(uint64_t entry) {
+    return entry && 1;
 }
-bool invalid(uint64_t entry)
-{
+
+bool invalid(uint64_t entry) {
     return !valid_is_1(entry);
 }
+uint64_t pte2ppn(uint64_t entry) {
+    if(invalid( entry))
+        return NO_MAPPING;
+    else
+    {
+        return unpad_address(entry);
+    }
+}
+
 uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
     uint64_t *virt_address = get_virt_address(pt);
     for (short i = 0; i < NLEVELS; i++) {
-        int level_value=get_level(virt_address,i);
-        if(invalid(virt_address[level_value]))
+        int level_value = get_level(virt_address, i);
+        if (invalid(virt_address[level_value]))
             return NO_MAPPING;
-        //todo continue if adress IS valid
+        //todo continue if address IS valid
 
     }
 
