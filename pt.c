@@ -90,7 +90,7 @@ void put_new_pte(uint64_t ppn,uint64_t level_value,uint64_t* virt_address)
         new_value=invalidate_pte(ppn);
         else {
         new_value = pad_address(ppn);
-        new_value++;
+        new_value|=1;
     }
         virt_address[level_value]=new_value;
 }
