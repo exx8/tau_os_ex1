@@ -53,7 +53,8 @@ uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
             return NO_MAPPING;
         virt_address = phys_to_virt(virt_address[level_value]);
     }
-    return virt_address;
+    short final_level_value= get_level(vpn, NLEVELS);
+    return virt_address[final_level_value];
 }
 
 
@@ -102,6 +103,8 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
         }
         virt_address = phys_to_virt(virt_address[level_value]); //this seems to be ok
     }
+    put_new_pte(ppn,get_level(vpn,NLEVELS),virt_address);
+
 
 
 
