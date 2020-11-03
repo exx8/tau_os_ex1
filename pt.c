@@ -103,14 +103,12 @@ uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
         set_new_frame(virt_address, level_value);
     }
     virt_address = phys_to_virt(virt_address[level_value]); //this seems to be ok
-    return page_update_walk(vpn, virt_address, i+1);
+    return page_update_walk(vpn, virt_address, i + 1);
 }
 
 void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
     uint64_t *virt_address = get_virt_address(pt);
-
     virt_address = page_update_walk(vpn, virt_address, 0);
-
     put_new_pte(ppn, get_level(vpn, NLEVELS), virt_address);
 
 
