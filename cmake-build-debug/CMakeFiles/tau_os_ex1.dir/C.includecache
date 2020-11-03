@@ -17,8 +17,8 @@ err.h
 -
 sys/mman.h
 -
-pt.c
-/home/eran/CLionProjects/tau_os_ex1/pt.c
+pt2.c
+/home/eran/CLionProjects/tau_os_ex1/pt2.c
 os.h
 /home/eran/CLionProjects/tau_os_ex1/os.h
 
@@ -26,9 +26,7 @@ os.h
 stdint.h
 -
 
-/home/eran/CLionProjects/tau_os_ex1/pt.c
-stdbool.h
--
+/home/eran/CLionProjects/tau_os_ex1/pt2.c
 os.h
 /home/eran/CLionProjects/tau_os_ex1/os.h
 

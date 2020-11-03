@@ -76,11 +76,17 @@ void set_new_frame(uint64_t *virt_address, int level_value) {
     new_frame |= 1;
     virt_address[level_value] = new_frame;
 }
+uint64_t invalidate_pte(uint64_t ppn)
+{
+    ppn>>=1;
+    ppn<<=1;
+    return ppn;
+}
 void put_new_pte(uint64_t ppn,uint64_t level_value,uint64_t* virt_address)
 {
     uint64_t new_value;
     if(ppn==NO_MAPPING)
-        ppn&18446744073709551614; //18446744073709551614==1111111111111111111111111111111111111111111111111111111111111110₂
+        new_value=invalidate_pte(ppn);
         else {
         new_value = pad_address(ppn);
         new_value++;

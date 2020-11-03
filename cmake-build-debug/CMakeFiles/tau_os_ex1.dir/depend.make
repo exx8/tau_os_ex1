@@ -3,5 +3,5 @@
 
 CMakeFiles/tau_os_ex1.dir/os.c.o: ../os.c
 CMakeFiles/tau_os_ex1.dir/os.c.o: ../os.h
-CMakeFiles/tau_os_ex1.dir/os.c.o: ../pt.c
+CMakeFiles/tau_os_ex1.dir/os.c.o: ../pt2.c
 
