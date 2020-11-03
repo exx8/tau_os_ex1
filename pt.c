@@ -2,7 +2,6 @@
 #include "os.h"
 
 #define NLEVELS 5
-#define leaves 512
 
 //counting from zero!!!!
 
@@ -31,9 +30,9 @@ uint64_t *get_virt_address(uint64_t pt) {
 
 //@todo fix it as it is wrong
 uint64_t get_level(uint64_t vpn, short level) {
-    int keep_only = 511;
+    const int keep_only = 511;
     const int level_size = 9;
-    keep_only <<=45-level * level_size;
+    vpn >>=45-level * level_size;
     return vpn & keep_only;
 
 }
@@ -81,7 +80,7 @@ void put_new_pte(uint64_t ppn,uint64_t level_value,uint64_t* virt_address)
 {
     uint64_t new_value;
     if(ppn==NO_MAPPING)
-        ppn&18446744073709551614; //18446744073709551614==1111111111111111111111111111111111111111111111111111111111111110_2
+        ppn&18446744073709551614; //18446744073709551614==1111111111111111111111111111111111111111111111111111111111111110₂
         else {
         new_value = pad_address(ppn);
         new_value++;

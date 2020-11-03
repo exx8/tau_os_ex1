@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <err.h>
 #include <sys/mman.h>
-#include "pt.c"
+#include "pt2.c"
 #include "os.h"
 
 /* 2^20 pages ought to be enough for anybody */
