@@ -28,11 +28,11 @@ uint64_t *get_virt_address(uint64_t pt) {
     return virt_address;
 }
 
-//@todo fix it as it is wrong
 uint64_t get_level(uint64_t vpn, short level) {
+    const int effective_size = 45;
     const int keep_only = 511;
     const int level_size = 9;
-    vpn >>=45-level * level_size;
+    vpn >>= effective_size - level * level_size;
     return vpn & keep_only;
 
 }

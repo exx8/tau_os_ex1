@@ -6,7 +6,11 @@
 #include <stdio.h>
 #include <err.h>
 #include <sys/mman.h>
+#if PT==1
+#include "pt.c"
+#else
 #include "pt2.c"
+#endif
 #include "os.h"
 
 /* 2^20 pages ought to be enough for anybody */
