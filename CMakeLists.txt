@@ -4,4 +4,5 @@ add_definitions( -DPT=1 )
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(tau_os_ex1 os.c)
+add_executable(tau_os_ex1 os2.c)
+target_link_libraries(tau_os_ex1 m)

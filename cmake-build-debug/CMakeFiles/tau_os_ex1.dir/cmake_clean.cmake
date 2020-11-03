@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/tau_os_ex1.dir/os.c.o"
+  "CMakeFiles/tau_os_ex1.dir/os2.c.o"
   "tau_os_ex1"
   "tau_os_ex1.pdb"
 )

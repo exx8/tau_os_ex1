@@ -60,8 +60,9 @@ uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
 
 uint64_t get_pte(uint64_t pt, uint64_t vpn) {
     uint64_t *virt_address = get_virt_address(pt);
-    virt_address = page_walk(virt_address, vpn);
-    return virt_address;
+    uint64_t page_walk_result;
+    page_walk_result = page_walk(virt_address, vpn);
+    return page_walk_result;
 }
 
 uint64_t page_table_query(uint64_t pt, uint64_t vpn) {

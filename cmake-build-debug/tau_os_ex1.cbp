@@ -78,10 +78,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/eran/CLionProjects/tau_os_ex1/os.c">
-			<Option target="tau_os_ex1"/>
-		</Unit>
-		<Unit filename="/home/eran/CLionProjects/tau_os_ex1/os.h">
+		<Unit filename="/home/eran/CLionProjects/tau_os_ex1/os2.c">
 			<Option target="tau_os_ex1"/>
 		</Unit>
 		<Unit filename="/home/eran/CLionProjects/tau_os_ex1/CMakeLists.txt">

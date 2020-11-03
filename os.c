@@ -15,7 +15,6 @@
 
 /* 2^20 pages ought to be enough for anybody */
 #define NPAGES	(1024*1024)
-#define NLEVELS 6
 static void* pages[NPAGES];
 
 uint64_t alloc_page_frame(void)
@@ -51,7 +50,7 @@ void* phys_to_virt(uint64_t phys_addr)
 	return va;
 }
 
-int main(int argc, char **argv)
+int main2(int argc, char **argv)
 {
 	uint64_t pt = alloc_page_frame();
 
