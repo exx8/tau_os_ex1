@@ -53,7 +53,7 @@ uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
             return NO_MAPPING;
         virt_address = phys_to_virt(virt_address[level_value]);
     }
-    short final_level_value= get_level(vpn, NLEVELS);
+    short final_level_value = get_level(vpn, NLEVELS);
     return virt_address[final_level_value];
 }
 
@@ -77,23 +77,24 @@ void set_new_frame(uint64_t *virt_address, int level_value) {
     new_frame += 1;
     virt_address[level_value] = new_frame;
 }
-uint64_t invalidate_pte(uint64_t ppn)
-{
-    ppn>>=1;
-    ppn<<=1;
+
+uint64_t invalidate_pte(uint64_t ppn) {
+    ppn >>= 1;
+    ppn <<= 1;
     return ppn;
 }
-void put_new_pte(uint64_t ppn,uint64_t level_value,uint64_t* virt_address)
-{
+
+void put_new_pte(uint64_t ppn, uint64_t level_value, uint64_t *virt_address) {
     uint64_t new_value;
-    if(ppn==NO_MAPPING)
-        new_value=invalidate_pte(ppn);
-        else {
+    if (ppn == NO_MAPPING)
+        new_value = invalidate_pte(ppn);
+    else {
         new_value = pad_address(ppn);
-        new_value|=1;
+        new_value |= 1;
     }
-        virt_address[level_value]=new_value;
+    virt_address[level_value] = new_value;
 }
+
 void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
     uint64_t *virt_address = get_virt_address(pt);
     for (short i = 0; i < NLEVELS; i++) {
@@ -103,9 +104,7 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
         }
         virt_address = phys_to_virt(virt_address[level_value]); //this seems to be ok
     }
-    put_new_pte(ppn,get_level(vpn,NLEVELS),virt_address);
-
-
+    put_new_pte(ppn, get_level(vpn, NLEVELS), virt_address);
 
 
 }
