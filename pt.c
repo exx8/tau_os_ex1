@@ -29,12 +29,12 @@ uint64_t *get_virt_address(uint64_t pt) {
     return virt_address;
 }
 
-
+//@todo fix it as it is wrong
 uint64_t get_level(uint64_t vpn, short level) {
     int keep_only = 511;
     const int level_size = 9;
-    keep_only <<= level * level_size;
-    return vpn && keep_only;
+    keep_only <<=45-level * level_size;
+    return vpn & keep_only;
 
 }
 
@@ -48,11 +48,11 @@ bool invalid(uint64_t entry) {
 
 
 uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
-    for (short i = 0; i <= NLEVELS; i++) {
+    for (short i = 0; i < NLEVELS; i++) {
         int level_value = get_level(vpn, i);
         if (invalid(virt_address[level_value]))
             return NO_MAPPING;
-        virt_address = virt_address[level_value];
+        virt_address = phys_to_virt(virt_address[level_value]);
     }
     return virt_address;
 }
@@ -95,7 +95,7 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
         if (virt_address[level_value] == 0) {
             set_new_frame(virt_address, level_value);
         }
-        virt_address = virt_address[level_value];
+        virt_address = phys_to_virt(virt_address[level_value]);
     }
 
 
