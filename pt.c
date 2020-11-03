@@ -73,7 +73,7 @@ uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
 void set_new_frame(uint64_t *virt_address, int level_value) {
     uint64_t new_frame = alloc_page_frame();
     new_frame = pad_address(new_frame);
-    new_frame |= 1;
+    new_frame += 1;
     virt_address[level_value] = new_frame;
 }
 uint64_t invalidate_pte(uint64_t ppn)
@@ -100,7 +100,7 @@ void page_table_update(uint64_t pt, uint64_t vpn, uint64_t ppn) {
         if (virt_address[level_value] == 0) {
             set_new_frame(virt_address, level_value);
         }
-        virt_address = phys_to_virt(virt_address[level_value]);
+        virt_address = phys_to_virt(virt_address[level_value]); //this seems to be ok
     }
 
 

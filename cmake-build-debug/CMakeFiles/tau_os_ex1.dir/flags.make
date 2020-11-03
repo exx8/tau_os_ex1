@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_FLAGS = -g   -std=gnu11
 
-C_DEFINES = 
+C_DEFINES = -DPT=1
 
 C_INCLUDES = 
 
