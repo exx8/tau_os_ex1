@@ -38,7 +38,7 @@ uint64_t get_level(uint64_t vpn, short level) {
 }
 
 bool valid_is_1(uint64_t entry) {
-    return entry; // technically it should be "entry &1" but it is meaningless
+    return entry; // technically it should be "entry &&1" but it is meaningless
 }
 
 bool invalid(uint64_t entry) {
