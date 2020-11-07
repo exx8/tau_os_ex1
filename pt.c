@@ -32,7 +32,7 @@ uint64_t get_level(uint64_t vpn, short level) {
     const int effective_size = 45;
     const int keep_only = 511;
     const int level_size = 9;
-    int shift_vpn=vpn >> effective_size - level * level_size;
+    uint64_t shift_vpn=vpn >> effective_size - level * level_size;
     return shift_vpn & keep_only;
 
 }
