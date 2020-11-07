@@ -36,7 +36,10 @@ uint64_t get_level(uint64_t vpn, short level) {
     return shift_vpn & keep_only;
 
 }
-
+uint64_t remove_valid_bit(uint64_t address)
+{
+    return (address>>1)<<1;
+}
 bool valid_is_1(uint64_t entry) {
     return entry; // technically it should be "entry &&1" but it is meaningless
 }
@@ -51,7 +54,7 @@ uint64_t page_walk(uint64_t *virt_address, uint64_t vpn) {
         int level_value = get_level(vpn, i);
         if (invalid(virt_address[level_value]))
             return NO_MAPPING;
-        virt_address = phys_to_virt(virt_address[level_value]);
+        virt_address = phys_to_virt(remove_valid_bit(virt_address[level_value]));
     }
     short final_level_value = get_level(vpn, NLEVELS);
     return virt_address[final_level_value];
@@ -94,10 +97,10 @@ uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
     if (i == NLEVELS)
         return virt_address;
     int level_value = get_level(vpn, i);
-    if ((virt_address[level_value] &1)==0) {
+    if ((virt_address[level_value] &1 )==0) {
         set_new_frame(virt_address, level_value);
     }
-    virt_address = phys_to_virt(virt_address[level_value]); //this seems to be ok
+    virt_address = phys_to_virt(remove_valid_bit(virt_address[level_value])); //this seems to be ok
     return page_update_walk(vpn, virt_address, i + 1);
 }
 
