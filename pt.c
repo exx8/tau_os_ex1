@@ -32,7 +32,7 @@ uint64_t get_level(uint64_t vpn, short level) {
     const int effective_size = 45;
     const int keep_only = 511;
     const int level_size = 9;
-    uint64_t shift_vpn = vpn >> effective_size - level * level_size;
+    uint64_t shift_vpn = vpn >> (effective_size - level * level_size);
     return shift_vpn & keep_only;
 
 }
@@ -41,7 +41,7 @@ uint64_t remove_valid_bit(uint64_t address) {
     return (address >> 1) << 1;
 }
 
-uint64_t get_next_virt(uint64_t pte) {
+void* get_next_virt(uint64_t pte) {
     return phys_to_virt(remove_valid_bit(pte));
 }
 
