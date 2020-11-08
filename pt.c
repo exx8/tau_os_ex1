@@ -41,7 +41,7 @@ uint64_t remove_valid_bit(uint64_t address) {
     return (address >> 1) << 1;
 }
 
-void* get_next_virt(uint64_t pte) {
+void *get_next_virt(uint64_t pte) {
     return phys_to_virt(remove_valid_bit(pte));
 }
 
