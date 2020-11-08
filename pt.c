@@ -41,7 +41,7 @@ uint64_t remove_valid_bit(uint64_t address)
     return (address>>1)<<1;
 }
 bool valid_is_1(uint64_t entry) {
-    return entry; // technically it should be "entry &&1" but it is meaningless
+    return entry&1;
 }
 
 bool invalid(uint64_t entry) {
