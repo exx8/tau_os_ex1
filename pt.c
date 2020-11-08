@@ -32,16 +32,17 @@ uint64_t get_level(uint64_t vpn, short level) {
     const int effective_size = 45;
     const int keep_only = 511;
     const int level_size = 9;
-    uint64_t shift_vpn=vpn >> effective_size - level * level_size;
+    uint64_t shift_vpn = vpn >> effective_size - level * level_size;
     return shift_vpn & keep_only;
 
 }
-uint64_t remove_valid_bit(uint64_t address)
-{
-    return (address>>1)<<1;
+
+uint64_t remove_valid_bit(uint64_t address) {
+    return (address >> 1) << 1;
 }
+
 bool valid_is_1(uint64_t entry) {
-    return entry&1;
+    return entry & 1;
 }
 
 bool invalid(uint64_t entry) {
@@ -78,7 +79,7 @@ uint64_t page_table_query(uint64_t pt, uint64_t vpn) {
 void set_new_frame(uint64_t *virt_address, int level_value) {
     uint64_t new_frame = alloc_page_frame();
     new_frame = pad_address(new_frame);
-    virt_address[level_value] = new_frame|1;
+    virt_address[level_value] = new_frame | 1;
 }
 
 
@@ -91,15 +92,16 @@ void put_new_pte(uint64_t ppn, uint64_t level_value, uint64_t *virt_address) {
     }
     virt_address[level_value] = new_value;
 }
-uint64_t get_next_virt(uint64_t pte)
-{
+
+uint64_t get_next_virt(uint64_t pte) {
     return phys_to_virt(remove_valid_bit(pte));
 }
+
 uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
     if (i == NLEVELS)
         return virt_address;
     int level_value = get_level(vpn, i);
-    if ((virt_address[level_value] &1 )==0) {
+    if ((virt_address[level_value] & 1) == 0) {
         set_new_frame(virt_address, level_value);
     }
     virt_address = get_next_virt(virt_address[level_value]); //this seems to be ok
