@@ -6,3 +6,35 @@
 
 #IncludeRegexTransform: 
 
+/home/eran/CLionProjects/tau_os_ex1/os.h
+stdint.h
+-
+
+/home/eran/CLionProjects/tau_os_ex1/os2.c
+assert.h
+-
+time.h
+-
+execinfo.h
+-
+stdlib.h
+-
+stdio.h
+-
+err.h
+-
+sys/mman.h
+-
+os.h
+/home/eran/CLionProjects/tau_os_ex1/os.h
+pt.c
+/home/eran/CLionProjects/tau_os_ex1/pt.c
+math.h
+/home/eran/CLionProjects/tau_os_ex1/math.h
+
+/home/eran/CLionProjects/tau_os_ex1/pt.c
+stdbool.h
+-
+os.h
+/home/eran/CLionProjects/tau_os_ex1/os.h
+

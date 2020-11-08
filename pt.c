@@ -92,7 +92,10 @@ void put_new_pte(uint64_t ppn, uint64_t level_value, uint64_t *virt_address) {
     }
     virt_address[level_value] = new_value;
 }
-
+uint64_t get_next_virt(uint64_t pte)
+{
+    return phys_to_virt(remove_valid_bit(pte));
+}
 uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
     if (i == NLEVELS)
         return virt_address;
@@ -100,7 +103,7 @@ uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
     if ((virt_address[level_value] &1 )==0) {
         set_new_frame(virt_address, level_value);
     }
-    virt_address = phys_to_virt(remove_valid_bit(virt_address[level_value])); //this seems to be ok
+    virt_address = get_next_virt(virt_address[level_value]); //this seems to be ok
     return page_update_walk(vpn, virt_address, i + 1);
 }
 
