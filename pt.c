@@ -40,6 +40,7 @@ uint64_t get_level(uint64_t vpn, short level) {
 uint64_t remove_valid_bit(uint64_t address) {
     return (address >> 1) << 1;
 }
+
 uint64_t get_next_virt(uint64_t pte) {
     return phys_to_virt(remove_valid_bit(pte));
 }
