@@ -103,7 +103,7 @@ uint64_t *page_update_walk(uint64_t vpn, uint64_t *virt_address, short i) {
     if (i == NLEVELS)
         return virt_address;
     int level_value = get_level(vpn, i);
-    if ((virt_address[level_value] & 1) == 0) {
+    if (!(virt_address[level_value] & 1))  {
         set_new_frame(virt_address, level_value);
     }
     virt_address = get_next_virt(virt_address[level_value]); //this seems to be ok
